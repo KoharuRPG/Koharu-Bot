@@ -1,0 +1,18 @@
+{
+	"name": "koharu-bot",
+	"version": "0.0.1",
+	"type": "module",
+	"description": "A RPG discord bot.",
+	"main": "./src/main/index.js",
+	"author": "DMVMarcio && eduardommelo",
+	"license": "MIT",
+	"scripts": {
+		"start": "node ."
+	},
+	"dependencies": {
+		"colors": "^1.4.0",
+		"discord.js": "^14.7.1",
+		"dotenv": "^16.0.3",
+		"pg": "^8.8.0"
+	}
+}
