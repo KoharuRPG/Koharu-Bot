@@ -17,6 +17,9 @@ export class Event {
 		this.once = options.once || false;
 	}
 
+	/**
+	 * Event execution method.
+	 */
 	exec() {
 		Terminal.error(
 			'BOT:Events',

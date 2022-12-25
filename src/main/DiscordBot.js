@@ -1,6 +1,6 @@
 import Discord, { Client } from 'discord.js';
 
-import { Handler } from '../utils/modules/index.js';
+import { Database, Handler } from '../utils/modules/index.js';
 import { Terminal } from '../utils/services/index.js';
 
 export class DiscordBot extends Client {
@@ -12,11 +12,18 @@ export class DiscordBot extends Client {
 		super(client_options);
 
 		this.modules = {
+			database: new Database(),
 			handler: new Handler(this)
 		};
 	}
 
+	/**
+	 * Initialize the Discord Bot.
+	 * @async
+	 */
 	async init() {
+		await this.modules.database.init();
+
 		await this.modules.handler.loadCommands();
 		await this.modules.handler.loadEvents();
 

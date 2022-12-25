@@ -23,6 +23,10 @@ export class Handler {
 		this.events = [];
 	}
 
+	/**
+	 * Read and load all commands.
+	 * @async
+	 */
 	async loadCommands() {
 		const files = await Loader.loadFolder(`${__dirname}/../../../handler/commands/`);
 
@@ -34,6 +38,10 @@ export class Handler {
 		);
 	}
 
+	/**
+	 * Read and load all events.
+	 * @async
+	 */
 	async loadEvents() {
 		const files = await Loader.loadFolder(`${__dirname}/../../../handler/events/`);
 
