@@ -1,4 +1,6 @@
 import { DiscordBot } from '../../../main/DiscordBot.js';
+import { Command, Event } from './models/index.js';
+
 import { __dirname as dirname, Loader, Terminal } from '../../services/index.js';
 
 const __dirname = dirname(import.meta);
@@ -10,7 +12,14 @@ export class Handler {
 	constructor(client) {
 		this.client = client;
 
+		/**
+		 * @type {Array<Command>}
+		 */
 		this.commands = [];
+
+		/**
+		 * @type {Array<Event>}
+		 */
 		this.events = [];
 	}
 

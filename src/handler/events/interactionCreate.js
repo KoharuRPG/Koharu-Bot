@@ -1,6 +1,6 @@
 import { BaseInteraction, ChatInputCommandInteraction } from 'discord.js';
 
-import { Command, Event } from '../../utils/modules/handler/models/index.js';
+import { Event } from '../../utils/modules/handler/models/index.js';
 import { Terminal } from '../../utils/services/index.js';
 
 export default class InteractionCreateEvent extends Event {
