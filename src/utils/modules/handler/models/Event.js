@@ -19,6 +19,7 @@ export class Event {
 
 	/**
 	 * Event execution method.
+	 * @public
 	 */
 	exec() {
 		Terminal.error(

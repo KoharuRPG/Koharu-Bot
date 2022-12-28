@@ -26,6 +26,7 @@ export class Command {
 	/**
 	 * Command execution method.
 	 * @async
+	 * @public
 	 *
 	 * @param {BaseInteraction} interaction
 	 */

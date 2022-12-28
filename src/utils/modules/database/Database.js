@@ -1,6 +1,7 @@
 import pg from 'pg';
 
 import { Terminal } from '../../services/index.js';
+import * as models from './models/index.js';
 
 export class Database extends pg.Pool {
 	constructor() {
@@ -14,10 +15,13 @@ export class Database extends pg.Pool {
 			connectionTimeoutMillis: 10000,
 			idleTimeoutMillis: 25000
 		});
+
+		this.Users = new models.Users(this);
 	}
 
 	/**
 	 * Test the connection to the database.
+	 * @public
 	 * @async
 	 */
 	async init() {
@@ -32,5 +36,29 @@ export class Database extends pg.Pool {
 		} catch (err) {
 			Terminal.error('PostgreSQL', 'An error occurred while trying to connect.', err);
 		}
+	}
+
+	/**
+	 * Insert a row into the database.
+	 * @public
+	 * @async
+	 *
+	 * @param {String} query - Query that will be executed.
+	 * @param {Array} args - Query arguments.
+	 *
+	 * @returns {Promise<pg.QueryResult>}
+	 */
+	async query(query = '', args = []) {
+		const queryResponse = await super.query(query, args).catch(err => {
+			Terminal.error(
+				'PostgreSQL',
+				`An error occurred while performing a query.\n- ${query}`,
+				err
+			);
+
+			return false;
+		});
+
+		return queryResponse;
 	}
 }
