@@ -19,6 +19,7 @@ export class DiscordBot extends Client {
 
 	/**
 	 * Initialize the Discord Bot.
+	 * @public
 	 * @async
 	 */
 	async init() {

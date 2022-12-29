@@ -162,7 +162,7 @@ export class Model {
 	 * @param {WhereArgs} where - Search arguments.
 	 * @param {Selectors} selectors - Columns that must be returned
 	 *
-	 * @returns {Promise<pg.QueryResultRow>}
+	 * @returns {Promise<pg.QueryResultRow|Boolean>}
 	 */
 	async findOne(where = [], selectors = ['*']) {
 		const whereData = this.formatWhere(where);
@@ -184,7 +184,7 @@ export class Model {
 	 *
 	 * @param {Object<string, Object>|Array<Object<string, Object>>} data - Data to be inserted.
 	 *
-	 * @returns {Promise<pg.QueryResultRow>}
+	 * @returns {Promise<pg.QueryResultRow|Boolean>}
 	 */
 	async insert(data = {}) {
 		const valuesData = this.formatValues(data);

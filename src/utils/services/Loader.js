@@ -2,6 +2,23 @@ import { readdir, lstat } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
 /**
+ * @typedef {Object} FileData
+ * @property {String} name - File name.
+ * @property {String} path - File path.
+ * @property {Object} content - File content.
+ */
+
+/**
+ * @callback CallbackAll
+ * @param {Array<FileData} files
+ */
+
+/**
+ * @callback CallbackSingle
+ * @param {FileData} file
+ */
+
+/**
  * Performs a read on all files in a directory.
  * @async
  *
@@ -11,7 +28,10 @@ import { resolve } from 'node:path';
  * @param {Boolean} [options.recursive] - Whether subdirectories should be read.
  * @param {Boolean} [options.import] - Whether files should be imported.
  *
- * @returns {Promise<Array>}
+ * @param {CallbackAll} [callbackAll] - Executes only once at the end of the reading.
+ * @param {CallbackSingle} [callbackSingle] - Runs at the end of reading each file.
+ *
+ * @returns {Promise<Array<FileData>>}
  */
 export const loadFolder = async (
 	folder = '',
