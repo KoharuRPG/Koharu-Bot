@@ -184,17 +184,17 @@ export class Model {
 	 *
 	 * @param {Object<string, Object>|Array<Object<string, Object>>} data - Data to be inserted.
 	 *
-	 * @returns
+	 * @returns {Promise<pg.QueryResultRow>}
 	 */
 	async insert(data = {}) {
 		const valuesData = this.formatValues(data);
 
 		const queryResponse = await this.database.query(
-			`INSERT INTO ${this.tableName} ${valuesData.query}`,
+			`INSERT INTO ${this.tableName} ${valuesData.query} RETURNING *`,
 			valuesData.args
 		);
 
-		return queryResponse?.rowCount || 0;
+		return queryResponse?.rows?.[0] || false;
 	}
 
 	/**
