@@ -59,6 +59,7 @@ export default class InteractionCreateEvent extends Event {
 	 */
 	async exec(interaction) {
 		if (interaction.isChatInputCommand()) return this.chatInputCommand(interaction);
+		if (interaction.isAutocomplete()) return this.autoComplete(interaction);
 
 		await interaction.deferReply({ ephemeral: true });
 		interaction.editReply({ content: 'Interaction without response!' });
