@@ -1,4 +1,4 @@
-import { BaseInteraction, SlashCommandBuilder } from 'discord.js';
+import { BaseInteraction, AutocompleteInteraction, SlashCommandBuilder } from 'discord.js';
 import { DiscordBot } from '../../../../main/DiscordBot.js';
 
 import { Terminal } from '../../../services/index.js';
@@ -8,7 +8,9 @@ export class Command {
 	 * @param {Object} options - Command options.
 	 * @param {String} options.name - Command name.
 	 * @param {String} options.description - Command description.
-	 * @param {Boolean} options.ephemeral - Whether the response should be ephemeral.
+	 *
+	 * @param {Boolean} options.defer - Whether the command should be deferred.
+	 * @param {Boolean} options.ephemeral - If the answer must be ephemeral (need to be deferred).
 	 *
 	 * @param {DiscordBot} client - The DiscordBot instance.
 	 */
@@ -18,9 +20,21 @@ export class Command {
 		this.name = options.name;
 		this.description = options.description || '';
 
-		this.ephemeral = options.ephemeral || false;
+		this.defer = !!options.defer;
+		this.ephemeral = !!options.ephemeral;
 
 		this.slash = new SlashCommandBuilder().setName(this.name).setDescription(this.description);
+	}
+
+	/**
+	 * Command auto completion method.
+	 * @async
+	 * @public
+	 *
+	 * @param {AutocompleteInteraction} interaction
+	 */
+	async autoComplete(interaction) {
+		await interaction.respond([]);
 	}
 
 	/**
@@ -31,8 +45,8 @@ export class Command {
 	 * @param {BaseInteraction} interaction
 	 */
 	async exec(interaction) {
-		await interaction.deferReply();
-		interaction.editReply({ content: 'Command without response!' });
+		if (!this.defer) await interaction.deferReply();
+		await interaction.editReply({ content: 'Command without response!' });
 
 		Terminal.error(
 			'BOT:Commands',

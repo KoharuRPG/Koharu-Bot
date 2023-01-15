@@ -6,6 +6,7 @@ export default class PingCommand extends Command {
 		super({
 			name: 'ping',
 			description: 'Respond with Pong!',
+			defer: true,
 			ephemeral: true
 		});
 	}
